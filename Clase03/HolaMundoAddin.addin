@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>HolaMundo</Name>
+    <Assembly>AddinHolaMundo.dll</Assembly>
+    <AddInId>3a5aa42f-54a4-4404-8f57-e0abbec67681</AddInId>
+    <FullClassName>AddinHolaMundo.App</FullClassName>
+    <VendorId>Goro</VendorId>
+    <VendorDescription>Luciano Gorosito, www.universobim.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>
