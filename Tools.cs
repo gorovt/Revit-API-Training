@@ -22,3 +22,9 @@ pComentario.Set(comentario);
 pMarca.Set(marca);
 
 t.Commit();
+
+// Filtros y Colecciones
+// Encontrar todos los ejemplares de Muros del Documento
+ElementCategoryFilter filter = new ElementCategoryFilter(BuiltInCategory.OST_Walls);
+FilteredElementCollector collector = new FilteredElementCollector(document);
+List<Element> lista = collector.WherePasses(filter).WhereElementIsNotElementType().ToList();
