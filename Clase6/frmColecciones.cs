@@ -27,7 +27,7 @@ namespace AddinHolaMundo
             // Crear Nodo principal
             TreeNode node0 = new TreeNode();
             node0.Name = "00";
-            node0.Text = "Lista de Muros:";
+            node0.Text = "Lista de Muebles:";
 
             // Recorrer la Lista y crear un Nodo para cada elemento
             foreach (Element elem in lista)
