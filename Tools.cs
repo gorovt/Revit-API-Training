@@ -28,3 +28,16 @@ t.Commit();
 ElementCategoryFilter filter = new ElementCategoryFilter(BuiltInCategory.OST_Walls);
 FilteredElementCollector collector = new FilteredElementCollector(document);
 List<Element> lista = collector.WherePasses(filter).WhereElementIsNotElementType().ToList();
+// Otras variantes
+// Obtener todas las Topografías
+FilteredElementCollector collector = new FilteredElementCollector(doc);
+List<Element> lstTopo = collector.OfClass(typeof(TopographySurface)).ToList();
+
+// LinQ: se necesita igualmente un Collector
+FilteredElementCollector collector = new FilteredElementCollector(doc);
+List<Element> elements = collector.WhereElementIsNotElementType().ToList();
+List<Element> lstInstance = (from elem in elements
+                                         where elem.Category != null
+                                         && elem.Category.Id != (new ElementId(BuiltInCategory.OST_Cameras))
+                                         && elem.Category.Id != (new ElementId(BuiltInCategory.OST_StackedWalls))
+                                         select elem).ToList();
