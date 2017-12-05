@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.ApplicationServices;
+using System.Linq;
 
 namespace AddinHolaMundo
 {
@@ -25,8 +26,16 @@ namespace AddinHolaMundo
             FilteredElementCollector collector = new FilteredElementCollector(doc);
             List<Element> lista = collector.WherePasses(filter).WhereElementIsNotElementType().ToList();
 
+            // Crear una Lista de Mobiliarios usando LinQ
+            FilteredElementCollector collector2 = new FilteredElementCollector(doc);
+            List<Element> listaMobiliarios = collector2.WhereElementIsNotElementType().ToList();
+            List<Element> listaMuebles = (from elem in listaMobiliarios
+                                          where elem.Category != null &&
+                                          elem.Category.Id == new ElementId(BuiltInCategory.OST_Furniture)
+                                          select elem).ToList();
+
             // Crear el objeto formulario
-            frmColecciones seleccion = new frmColecciones(doc, lista);
+            frmColecciones seleccion = new frmColecciones(doc, listaMuebles);
 
             // Mostrar el formulario
             seleccion.ShowDialog();
