@@ -41,3 +41,8 @@ List<Element> lstInstance = (from elem in elements
                                          && elem.Category.Id != (new ElementId(BuiltInCategory.OST_Cameras))
                                          && elem.Category.Id != (new ElementId(BuiltInCategory.OST_StackedWalls))
                                          select elem).ToList();
+
+// Seleccionar elemento en la Interfaz
+List<ElementId> lista = new List<ElementId>();
+lista.Add(elem.Id);
+uiDoc.Selection.SetElementIds(lista);
