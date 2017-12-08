@@ -88,3 +88,25 @@ public static List<Level> GetAllLevels(Document doc)
     return lst;
 }
 
+// Obtener una Lista de FamilySymbol
+public static List<FamilySymbol> GetAllFamilySymbol(Document doc)
+{
+    List<FamilySymbol> lst = new List<FamilySymbol>();
+    FilteredElementCollector collector = new FilteredElementCollector(doc);
+    List<Element> lstElem = collector.OfClass(typeof(FamilySymbol)).ToList();
+    foreach (Element elem in lstElem)
+    {
+        // Convertir el Elemento en FamilySymbol
+        FamilySymbol fm = elem as FamilySymbol;
+        // Verificar si es una Familia de Modelo
+        if (fm.Category.CategoryType == CategoryType.Model)
+        {
+            // Verificar si NO existe en la Lista
+            if (!lst.Exists(x => x.Id == fm.Id))
+            {
+                lst.Add(fm);
+            }
+        }
+    }
+    return lst;
+}
