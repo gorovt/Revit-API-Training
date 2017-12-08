@@ -46,3 +46,45 @@ List<Element> lstInstance = (from elem in elements
 List<ElementId> lista = new List<ElementId>();
 lista.Add(elem.Id);
 uiDoc.Selection.SetElementIds(lista);
+
+// Obtener todos los Elementos del Modelo
+public static List<Element> GetAllElements(Document doc)
+{
+    FilteredElementCollector collector = new FilteredElementCollector(doc);
+    return collector.WhereElementIsNotElementType().ToList();
+}
+
+// Obtener una Lista de Categorías de Elementos del Modelo
+public static List<Category> GetCategories(Document doc)
+{
+    List<Category> lst = new List<Category>();
+    foreach (Element elem in GetAllElements(doc))
+    {
+        // Verificar que sea una Familia de Modelo
+        if (elem.Category.CategoryType == CategoryType.Model)
+        {
+            // Verificar que no exista en la Lista
+            if (!lst.Exists(x => x.Id == elem.Category.Id))
+            {
+                lst.Add(elem.Category);
+            }
+        }
+    }
+    return lst;
+}
+
+// Obtener una Lista de Niveles
+public static List<Level> GetAllLevels(Document doc)
+{
+    List<Level> lst = new List<Level>();
+    FilteredElementCollector collector = new FilteredElementCollector(doc);
+    List<Element> lstElem = collector.OfClass(typeof(Level)).ToList();
+    foreach (Element elem in lstElem)
+    {
+        // Convertir el Elemento en Nivel
+        Level lvl = elem as Level;
+        lst.Add(lvl);
+    }
+    return lst;
+}
+
