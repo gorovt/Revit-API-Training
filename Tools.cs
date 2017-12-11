@@ -110,3 +110,8 @@ public static List<FamilySymbol> GetAllFamilySymbol(Document doc)
     }
     return lst;
 }
+
+// Crear Ejemplares de Familia. Se debe crear una lista de FamilyInstanceCreationData
+FamilyInstanceCreationData ficreationdata = new FamilyInstanceCreationData(pointXYZ, familySymbol, 
+                        level, Autodesk.Revit.DB.Structure.StructuralType.NonStructural);
+_doc.Create.NewFamilyInstances2(lstData);
