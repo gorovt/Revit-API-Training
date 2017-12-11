@@ -54,25 +54,6 @@ public static List<Element> GetAllElements(Document doc)
     return collector.WhereElementIsNotElementType().ToList();
 }
 
-// Obtener una Lista de Categorías de Elementos del Modelo
-public static List<Category> GetCategories(Document doc)
-{
-    List<Category> lst = new List<Category>();
-    foreach (Element elem in GetAllElements(doc))
-    {
-        // Verificar que sea una Familia de Modelo
-        if (elem.Category.CategoryType == CategoryType.Model)
-        {
-            // Verificar que no exista en la Lista
-            if (!lst.Exists(x => x.Id == elem.Category.Id))
-            {
-                lst.Add(elem.Category);
-            }
-        }
-    }
-    return lst;
-}
-
 // Obtener una Lista de Niveles
 public static List<Level> GetAllLevels(Document doc)
 {
@@ -105,6 +86,25 @@ public static List<FamilySymbol> GetAllFamilySymbol(Document doc)
             if (!lst.Exists(x => x.Id == fm.Id))
             {
                 lst.Add(fm);
+            }
+        }
+    }
+    return lst;
+}
+
+// Obtener una Lista de Categorías del Modelo
+public static List<Category> GetModelCategories(Document doc)
+{
+    List<Category> lst = new List<Category>();
+    foreach (FamilySymbol sym in GetAllFamilySymbol(doc))
+    {
+        // Verificar que tenga Categoría y sea de Modelo
+        if (sym.Category != null && sym.Category.CategoryType == CategoryType.Model)
+        {
+            // Verificar que no exista en la Lista
+            if (!lst.Exists(x => x.Id == sym.Category.Id))
+            {
+                lst.Add(sym.Category);
             }
         }
     }
