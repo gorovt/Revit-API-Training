@@ -111,6 +111,34 @@ public static List<FamilySymbol> GetAllFamilySymbol(Document doc)
     return lst;
 }
 
+// Obtener una Familia a partir de su nombre
+public static FamilySymbol GetFamilySymbolByName(Document doc, string name)
+{
+    FamilySymbol family = null;
+    foreach (FamilySymbol sym in GetAllFamilySymbol(doc))
+    {
+        if (sym.Name == name)
+        {
+            family = sym;
+        }
+    }
+    return family;
+}
+
+// Obtener un Nivel a partir de su nombre
+public static Level GetLevelByName(Document doc, string name)
+{
+    Level lvl = null;
+    foreach (Level level in GetAllLevels(doc))
+    {
+        if (level.Name == name)
+        {
+            lvl = level;
+        }
+    }
+    return lvl;
+}
+
 // Crear Ejemplares de Familia. Se debe crear una lista de FamilyInstanceCreationData
 // Se debe referenciar <<using Autodesk.Revit.Creation;>>
 FamilyInstanceCreationData ficreationdata = new FamilyInstanceCreationData(pointXYZ, familySymbol, 
