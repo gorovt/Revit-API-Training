@@ -54,21 +54,27 @@ public static List<Element> GetAllElements(Document doc)
     return collector.WhereElementIsNotElementType().ToList();
 }
 
-// Obtener una Lista de Niveles
-public static List<Level> GetAllLevels(Document doc)
+// Crear una lista de Niveles del Proyecto
+public static List<Level> ObtenerListaNiveles(Document doc)
 {
-    List<Level> lst = new List<Level>();
-    FilteredElementCollector collector = new FilteredElementCollector(doc);
-    List<Element> lstElem = collector.OfClass(typeof(Level)).ToList();
-    foreach (Element elem in lstElem)
-    {
-        // Convertir el Elemento en Nivel
-        Level lvl = elem as Level;
-        lst.Add(lvl);
-    }
-    return lst;
-}
+    // Crear una lista vacia de niveles
+    List<Level> niveles = new List<Level>();
 
+    // Crear un collector de Niveles
+    FilteredElementCollector collector = new FilteredElementCollector(doc);
+    List<Element> elementos = collector.OfClass(typeof(Level)).ToList();
+
+    // Llenar la lista de Niveles
+    foreach (var item in elementos)
+    {
+        // Convierto el Elemento en un Nivel
+        Level nivel = item as Level;
+
+        // Lleno la lista de niveles
+        niveles.Add(nivel);
+    }
+    return niveles;
+}
 // Obtener una Lista de FamilySymbol
 public static List<FamilySymbol> ObtenerListaTiposFamiliaModelo(Document doc)
 {
