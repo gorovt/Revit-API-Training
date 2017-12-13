@@ -88,23 +88,25 @@ public static List<FamilySymbol> ObtenerListaTiposFamiliaModelo(Document doc)
     return lst;
 }
 
-// Obtener una Lista de Categorías del Modelo
-public static List<Category> GetModelCategories(Document doc)
+// Crear una lista de Categorias del Modelo
+public static List<Category> ObtenerListaCategoriasModelo(Document doc)
 {
-    List<Category> lst = new List<Category>();
-    foreach (FamilySymbol sym in GetAllFamilySymbol(doc))
+    // Crear una lista vacia
+    List<Category> categorias = new List<Category>();
+
+    // Obtener una lista de tipos de familia cargados
+    List<FamilySymbol> tipos = ObtenerListaTiposFamiliaModelo(doc);
+
+    // Rellenar la Lista de Category
+    foreach (var item in tipos)
     {
-        // Verificar que tenga Categoría y sea de Modelo
-        if (sym.Category != null && sym.Category.CategoryType == CategoryType.Model)
+        // Verificar que la Categoria NO exista en la Lista
+        if (!categorias.Exists(x => x.Name == item.Category.Name))
         {
-            // Verificar que no exista en la Lista
-            if (!lst.Exists(x => x.Id == sym.Category.Id))
-            {
-                lst.Add(sym.Category);
-            }
+            categorias.Add(item.Category);
         }
     }
-    return lst;
+    return categorias;
 }
 
 // Obtener una Familia a partir de su nombre
