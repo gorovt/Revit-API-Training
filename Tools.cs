@@ -70,7 +70,7 @@ public static List<Level> GetAllLevels(Document doc)
 }
 
 // Obtener una Lista de FamilySymbol
-public static List<FamilySymbol> GetAllFamilySymbol(Document doc)
+public static List<FamilySymbol> ObtenerListaTiposFamiliaModelo(Document doc)
 {
     List<FamilySymbol> lst = new List<FamilySymbol>();
     FilteredElementCollector collector = new FilteredElementCollector(doc);
@@ -82,11 +82,7 @@ public static List<FamilySymbol> GetAllFamilySymbol(Document doc)
         // Verificar si es una Familia de Modelo
         if (fm.Category.CategoryType == CategoryType.Model)
         {
-            // Verificar si NO existe en la Lista
-            if (!lst.Exists(x => x.Id == fm.Id))
-            {
-                lst.Add(fm);
-            }
+            lst.Add(fm);
         }
     }
     return lst;
