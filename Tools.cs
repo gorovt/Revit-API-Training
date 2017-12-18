@@ -116,7 +116,7 @@ public static List<Category> ObtenerListaCategoriasModelo(Document doc)
 }
 
 // Obtener una Familia a partir de su nombre
-public static FamilySymbol GetFamilySymbolByName(Document doc, string name)
+public static FamilySymbol ObtenerTipoFamiliaPorNombre(Document doc, string name)
 {
     FamilySymbol family = null;
     foreach (FamilySymbol sym in GetAllFamilySymbol(doc))
@@ -130,7 +130,7 @@ public static FamilySymbol GetFamilySymbolByName(Document doc, string name)
 }
 
 // Obtener un Nivel a partir de su nombre
-public static Level GetLevelByName(Document doc, string name)
+public static Level ObtenerNivelPorNombre(Document doc, string name)
 {
     Level lvl = null;
     foreach (Level level in GetAllLevels(doc))
