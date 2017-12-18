@@ -148,3 +148,31 @@ public static Level GetLevelByName(Document doc, string name)
 FamilyInstanceCreationData ficreationdata = new FamilyInstanceCreationData(pointXYZ, familySymbol, 
                         level, Autodesk.Revit.DB.Structure.StructuralType.NonStructural);
 _doc.Create.NewFamilyInstances2(lstData);
+
+// TEMA FM
+// Crear una lista de Elementos para Trackear
+public static List<FamilyInstance> ObtenerFamiliasParaFm(Document doc)
+{
+    List<FamilyInstance> lstInstances = new List<FamilyInstance>();
+    FilteredElementCollector col = new FilteredElementCollector(doc);
+    var familyInstances = col.WhereElementIsNotElementType().OfClass(typeof(FamilyInstance));
+    List<Element> lst = (from elem in familyInstances
+                         where elem.Category.Id == new ElementId(BuiltInCategory.OST_Doors)
+                         || elem.Category.Id == new ElementId(BuiltInCategory.OST_Windows)
+                         || elem.Category.Id == new ElementId(BuiltInCategory.OST_Furniture)
+                         || elem.Category.Id == new ElementId(BuiltInCategory.OST_DuctTerminal)
+                         || elem.Category.Id == new ElementId(BuiltInCategory.OST_PlumbingFixtures)
+                         || elem.Category.Id == new ElementId(BuiltInCategory.OST_MechanicalEquipment)
+                         || elem.Category.Id == new ElementId(BuiltInCategory.OST_ElectricalEquipment)
+                         || elem.Category.Id == new ElementId(BuiltInCategory.OST_LightingDevices)
+                         || elem.Category.Id == new ElementId(BuiltInCategory.OST_LightingFixtures)
+                         || elem.Category.Id == new ElementId(BuiltInCategory.OST_ElectricalFixtures)
+                         || elem.Category.Id == new ElementId(BuiltInCategory.OST_Sprinklers)
+                         select elem).ToList();
+    foreach (var elem in lst)
+    {
+        FamilyInstance fam = elem as FamilyInstance;
+        lstInstances.Add(fam);
+    }
+    return lstInstances;
+}
