@@ -176,3 +176,24 @@ public static List<FamilyInstance> ObtenerFamiliasParaFm(Document doc)
     }
     return lstInstances;
 }
+
+// Crear una lista de Rooms
+public static List<Room> ObtenerHabitaciones(Document doc)
+{
+    List<Room> lstRooms = new List<Room>();
+    FilteredElementCollector collector = new FilteredElementCollector(doc).OfClass(typeof(SpatialElement));
+
+    foreach (SpatialElement e in collector)
+    {
+        Room room = e as Room;
+
+        if (null != room)
+        {
+            if (null != room.Level)
+            {
+                lstRooms.Add(room);
+            }
+        }
+    }
+    return lstRooms;
+}
