@@ -155,7 +155,7 @@ public static List<FamilyInstance> ObtenerFamiliasParaFm(Document doc)
 {
     List<FamilyInstance> lstInstances = new List<FamilyInstance>();
     FilteredElementCollector col = new FilteredElementCollector(doc);
-    var familyInstances = col.WhereElementIsNotElementType().OfClass(typeof(FamilyInstance));
+    var familyInstances = col.WhereElementIsNotElementType().WhereElementIsViewIndependent().OfClass(typeof(FamilyInstance));
     List<Element> lst = (from elem in familyInstances
                          where elem.Category.Id == new ElementId(BuiltInCategory.OST_Doors)
                          || elem.Category.Id == new ElementId(BuiltInCategory.OST_Windows)
