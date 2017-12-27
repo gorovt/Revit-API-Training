@@ -205,7 +205,7 @@ public static void ExportarTreeViewCsv(TreeView tree, string rutaArchivo)
     StringBuilder sb = new StringBuilder();
 
     // Agregar los titulos
-    sb.AppendLine("Habitacion,Familia");
+    sb.AppendLine("Habitacion;Familia");
   
     // Recorrer las ramas del TreeView
     foreach (TreeNode nodeRoom in tree.Nodes[0].Nodes)
@@ -213,7 +213,7 @@ public static void ExportarTreeViewCsv(TreeView tree, string rutaArchivo)
         foreach (TreeNode nodeFamilia in nodeRoom.Nodes)
         {
             // Crear la linea de texto del archivo CSV
-            string linea = nodeRoom.Text + "," + nodeFamilia.Text;
+            string linea = nodeRoom.Text + ";" + nodeFamilia.Text;
             // Agregar al stringbuilder
             sb.AppendLine(linea);
         }
