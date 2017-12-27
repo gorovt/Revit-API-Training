@@ -197,3 +197,23 @@ public static List<Room> ObtenerHabitaciones(Document doc)
     }
     return lstRooms;
 }
+
+// Exportar un TreeView a un archivo CSV
+public static void ExportarTreeViewCsv(TreeView tree, string rutaArchivo)
+{
+    // Crear un stringBuilder
+    StringBuilder sb = new StringBuilder();
+
+    // Recorrer las ramas del TreeView
+    foreach (TreeNode nodeRoom in tree.Nodes[0].Nodes)
+    {
+        foreach (TreeNode nodeFamilia in nodeRoom.Nodes)
+        {
+            // Crear la linea de texto del archivo CSV
+            string linea = nodeRoom.Text + "," + nodeFamilia.Text;
+            // Agregar al stringbuilder
+            sb.AppendLine(linea);
+        }
+    }
+    File.WriteAllText(rutaArchivo, sb.ToString());
+}
