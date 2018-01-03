@@ -298,3 +298,25 @@ public static void ExportarTreeViewExcel(TreeView tree, string rutaArchivo, Docu
     // Guardar el libro de excel
     wb.SaveAs(rutaArchivo);
 }
+
+// Obtener una Lista de FAces de un elemento
+public static List<Face> getFaces(Document doc, Element e)
+{
+    List<Face> lstFaces = new List<Face>();
+    Options opt = new Options();
+    opt.DetailLevel = ViewDetailLevel.Fine;
+    opt.ComputeReferences = true;
+    GeometryElement geom = e.get_Geometry(opt);
+    foreach (GeometryObject geobj in geom)
+    {
+        Solid geomSolid = geobj as Solid;
+        if (geomSolid != null)
+        {
+            foreach (Face geoFace in geomSolid.Faces)
+            {
+                lstFaces.Add(geoFace);
+            }
+        }
+    }
+    return lstFaces;
+}
