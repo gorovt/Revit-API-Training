@@ -320,3 +320,32 @@ public static List<Face> getFaces(Document doc, Element e)
     }
     return lstFaces;
 }
+
+// Importar Puntos desde Excel
+public static List<XYZ> ImportarPuntosExcel(string rutaArchivo)
+{
+    // Crear Lista de Puntos vacia
+    List<XYZ> listaPuntos = new List<XYZ>();
+
+    // Libro de Excel y Hojas
+    var libro = new XLWorkbook(rutaArchivo);
+    var hoja = libro.Worksheet(1);
+
+    // Recorremos las Filas de la Hoja
+    foreach (var row in hoja.Rows())
+    {
+        try
+        {
+            double x = Convert.ToDouble(row.Cell(1).Value.ToString());
+            double y = Convert.ToDouble(row.Cell(2).Value.ToString());
+            XYZ punto = new XYZ(x, y, 0);
+            listaPuntos.Add(punto);
+        }
+        catch (Exception)
+        {
+            // No hacer nada
+        }
+    }
+
+    return listaPuntos;
+}
